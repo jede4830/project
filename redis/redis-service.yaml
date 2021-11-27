@@ -1,24 +1,11 @@
-apiVersion: apps/v1 #  for k8s versions before 1.9.0 use apps/v1beta2  and before 1.8.0 use extensions/v1beta1
-kind: Deployment
+kind: Service
+apiVersion: v1
 metadata:
-  name: redis
+  name: "redis"
 spec:
   selector:
-    matchLabels:
-      app: redis
-  replicas: 1
-  template:
-    metadata:
-      labels:
-        app: redis
-    spec:
-      containers:
-      - name: master
-        image: redis
-        resources:
-          requests:
-            cpu: 100m
-            memory: 400Mi
-        ports:
-        - containerPort: 6379
----
+    app: "redis"
+  ports:
+    - protocol: "TCP"
+      port: 6379
+      targetPort: 6379

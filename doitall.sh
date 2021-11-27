@@ -3,7 +3,6 @@
 ./deploy-local-dev.sh
 ./port-forwarding.sh
 kubectl apply -f worker/worker-deployment.yaml
-kubectl apply -f worker/worker-service.yaml
 echo "Sleeping for 60 seconds..."
 sleep 60
 kubectl apply -f rest/rest-deployment.yaml
