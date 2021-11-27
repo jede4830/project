@@ -1,0 +1,15 @@
+apiVersion: v1 #  for k8s versions before 1.9.0 use apps/v1beta2  and before 1.8.0 use extensions/v1beta1
+kind: Pod
+metadata:
+  name: project-worker
+  labels:
+      app: project-worker
+spec:
+  containers:
+  - name: worker
+    image: jennamage/project-worker
+    env:
+        - name: REDIS_HOST
+          value: "redis"
+        - name: RABBITMQ_HOST
+          value: "rabbitmq"
