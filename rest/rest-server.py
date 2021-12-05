@@ -3,6 +3,7 @@ from flask import Flask
 from flask import request
 from flask import Response
 from flask import jsonify
+from flask_cors import CORS
 import platform
 import io
 import os
@@ -49,6 +50,7 @@ rabbitMQChannel.exchange_declare(exchange=exchangeName, exchange_type=exchangeTy
 
 # Initialize the Flask application
 app = Flask(__name__)
+CORS(app)
 
 log = logging.getLogger('werkzeug')
 log.setLevel(logging.DEBUG)
@@ -69,6 +71,29 @@ def get_continuations(patent_id):
         response_pickled = result
     #response_pickled = jsonpickle.encode(response)
     return Response(response=response_pickled, status=200, mimetype="application/json")
+
+@app.route('/form', methods=['GET'])
+def get_form():
+    #r = request 
+    #result = db.get(patent_id)
+    #if result == None:
+    #    message = f"{patent_id}"
+    #    my_routing_key = "toWorker_jede4830"
+    #    my_exchange = ""
+    #    rabbitMQChannel.basic_publish(exchange=my_exchange, 
+    #        routing_key=my_routing_key, body=message)
+    #    response = {"action":"queued"}
+    #    response_pickled = jsonpickle.encode(response)
+    #else:
+    #    response_pickled = result
+    #response_pickled = jsonpickle.encode(response)
+    response_html = ""
+    with open("testform.html","r") as infile:
+        response_html = infile.read()
+    return Response(response=response_html, status=200, mimetype="text/html")
+
+
+
 
 
 #@app.route('/apiv1/analyze', methods=['POST'])

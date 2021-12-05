@@ -1,1 +1,1 @@
-docker -t jennamage/project-worker . 
+docker build -t jennamage/project-worker . 

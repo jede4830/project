@@ -10,9 +10,6 @@ def main():
     numlist = get_patent_numbers_from_list( a )
     print(numlist)
 
-
 if __name__=='__main__':
     main()
-
-
 

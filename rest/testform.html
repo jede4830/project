@@ -1,0 +1,59 @@
+<html>
+<head>
+<title>Continuation Search Form</title>
+</head>
+<style>
+body {
+	background:  black;
+	color: lightskyblue;
+	text-align: center;
+}
+</style>
+<script>
+function testFun() {
+	//myform = document.getElementById("myform");
+	patentNum = document.getElementById("patentNum");
+	host = "127.0.0.1:5000"
+	url = "http://" + host + "/api/continuations/" + patentNum.value + '?_=' + new Date().getTime();
+	r = new XMLHttpRequest();
+	
+	//myjsontest = "{\"action\":\"queued\"}";
+
+	r.onload = function() {
+		results = document.getElementById("results");
+		//results.innerHTML = this.responseText;
+		
+		obj = JSON.parse(this.responseText);
+		
+		results.innerHTML = "";
+
+		for (var i=0; i < obj.length; i++) {
+			for (const [key, value] of Object.entries(obj[i])) {
+ 				//console.log(key, value);
+
+ 				if (key == "patent_title" || key == "patent_number" || key == "patent_date") {
+						results.innerHTML += key + " : " + value + "<br/>";
+			
+ 				}
+
+
+ 			}	
+ 			results.innerHTML += "<hr/><br/>";
+		}
+
+	}
+
+	r.open("GET", url);
+	r.setRequestHeader('Cache-Control', 'no-cache');
+	r.send();
+	//alert("sent");
+}
+</script>
+<body>
+Continuation Search Form
+	<input id="patentNum" type="text" ></input>
+	<input type="button" value="Submit" onclick="testFun()" ></input>
+	<hr>
+	<div id="results"></div>
+</body>
+</html>

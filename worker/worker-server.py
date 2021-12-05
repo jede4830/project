@@ -12,8 +12,9 @@ import urllib
 
 def get_patent_numbers_from_list(patent_list):
     numlist = []
-    for patent in patent_list:
-        numlist.append( patent['patent_number'] )
+    if patent_list != None:
+        for patent in patent_list:
+            numlist.append( patent['patent_number'] )
     return numlist
 
 def get_patent_title_from_number(patent_num):
@@ -77,10 +78,13 @@ def callback(ch, method, properties, body):
         result = get_continuation_from_number( patent_id )
         numlist = get_patent_numbers_from_list( result )
         for num in numlist:
-            db.set( num, str(result) )
+            #db.set( num, str(result) )
+            db.set( num, json.dumps(result) )
 
 def main():
     global rabbitMQChannel
+    global db
+    db.flushdb()
     rabbitMQChannel.basic_consume(queue='toWorker_jede4830', auto_ack=True, on_message_callback=callback)
     rabbitMQChannel.start_consuming()
 
