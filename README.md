@@ -24,11 +24,19 @@ To check pod status from root folder:
     - you can do this to check the status of the pods
 
 8. Once all the pods are up and running: sudo ./port-forwarding.sh 
-9. If a pod fails to start or runs into an error (worker -or- rest): 
-    - cd into the folder for that pod
-    - sudo ./restart.sh 
 
-10. To finally forward port 5000 out:
+9. To finally forward port 5000 out:
     - Add a firewall policy for port 5000 in Google Cloud 
     - sudo $(tail -n1 doitall.sh) 
+
+
+
+10. If a pod fails to start or runs into an error (worker -or- rest): 
+    - cd into the folder for that pod
+    - sudo ./restart.sh 
+    - If curl returns some error involving pika, rest likely lost connection with rabbitmq and needs to be restarted
+    - If you restart rest, you need to re-forward its ports
+        - sudo $(tail -n1 doitall.sh) 
+
+11. curl http://localhost:5000/api/continuations/11000000
 

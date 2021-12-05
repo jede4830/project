@@ -13,7 +13,7 @@ body {
 function testFun() {
 	//myform = document.getElementById("myform");
 	patentNum = document.getElementById("patentNum");
-	host = "127.0.0.1:5000"
+	host = "104.154.24.206:5000"
 	url = "http://" + host + "/api/continuations/" + patentNum.value + '?_=' + new Date().getTime();
 	r = new XMLHttpRequest();
 	
